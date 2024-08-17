@@ -1,21 +1,24 @@
 const mongoose = require("mongoose")
 
-const bookSchema = new mongoose.Schema({
-  title: {
-    required: true,
-    type: String
+const bookSchema = new mongoose.Schema(
+  {
+    title: {
+      required: true,
+      type: String
+    },
+
+    author: {
+      required: true,
+      type: String
+    },
+
+    createdAt: {
+      required: true,
+      type: Date,
+      default: Date.now
+    }
   },
-  author: {
-    required: true,
-    type: String
-  },
-  createdAt: {
-    required: true,
-    type: Date,
-    default: Date.now
-  },
-},
-{ collation: "books" }
+  { collection: "books" }
 )
 
 const Book = mongoose.model("Book", bookSchema)

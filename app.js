@@ -13,6 +13,8 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var booksRouter = require("./routes/books");
+const bodyParser = require("body-parser");
+const methodOverride = require("method-override");
 
 var app = express();
 
@@ -22,11 +24,15 @@ app.set('view engine', 'hbs');
 
 console.log("abcd")
 
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//To support HTTP methods more than GET and POST
+app.use(methodOverride('_method'))
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
